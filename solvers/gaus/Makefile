@@ -1,11 +1,12 @@
-libge: matrix.o pivot.o piv_ge_solver.o
+libge: pivot.o piv_ge_solver.o
 	ar rvs libge.a $^
 
-matrix.o: matrix.c matrix.h
-pivot.o: pivot.c matrix.h
-piv_ge_solver.o: piv_ge_solver.c piv_ge_solver.h matrix.h
+pivot.o: ../matrix.h
+	$(CC) -I ../ -c pivot.c
 
+piv_ge_solver.o: piv_ge_solver.c piv_ge_solver.h ../matrix.h
+	$(CC) -I ../ -c piv_ge_solver.c
 .PHONY: clean
 
 clean:
-	-rm *.o libge.a
+	-rm *.o

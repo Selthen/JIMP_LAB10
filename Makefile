@@ -7,8 +7,8 @@ intrp: main.o splines.o points.o interpolator.o solvers/gaus/libge.a
 prosta: main.o splines.o points.o prosta.o
 	$(CC) -o prosta  main.o splines.o points.o prosta.o	
 
-aproksymator_na_bazie.o: makespl.h points.h solvers/gaus/piv_ge_solver.h
-	$(CC) -I solvers/gaus -c aproksymator_na_bazie.c
+aproksymator_na_bazie.o: makespl.h points.h solvers/matrix.h solvers/gaus/piv_ge_solver.h
+	$(CC) -I solvers  -I solvers/gaus -c aproksymator_na_bazie.c
 
 interpolator.o: makespl.h points.h solvers/gaus/piv_ge_solver.h
 	$(CC) -I solvers/gaus -c interpolator.c

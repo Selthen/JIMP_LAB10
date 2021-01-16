@@ -1,5 +1,5 @@
-#ifndef PIV_GE_SOLVER_H
-#define PIV_GE_SOLVER_H
+#ifndef GRAD_H
+#define GRAD_H
 
 #include "matrix.h"
 
