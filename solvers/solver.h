@@ -1,5 +1,5 @@
-#ifndef GRAD_H
-#define GRAD_H
+#ifndef SOLVER_H
+#define SOLVER_H
 
 #include "matrix.h"
 

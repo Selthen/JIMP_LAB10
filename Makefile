@@ -1,19 +1,25 @@
-aprox: main.o splines.o points.o aproksymator_na_bazie.o solvers/gaus/libge.a
-	$(CC) -o aprox  main.o splines.o points.o aproksymator_na_bazie.o -L solvers/gaus -l ge
+aprox: main.o splines.o points.o aproksymator_na_bazie.o solvers/libsolve.a bin
+	$(CC) -o bin/aprox  main.o splines.o points.o aproksymator_na_bazie.o -L solvers -l solve
 
-intrp: main.o splines.o points.o interpolator.o solvers/gaus/libge.a
-	$(CC) -o intrp  main.o splines.o points.o interpolator.o -L solvers/gaus -l ge
+intrp: main.o splines.o points.o interpolator.o solvers/libsolve.a bin
+	$(CC) -o bin/intrp  main.o splines.o points.o interpolator.o -L solvers -l solve
 
-prosta: main.o splines.o points.o prosta.o
-	$(CC) -o prosta  main.o splines.o points.o prosta.o	
+prosta: main.o splines.o points.o prosta.o bin
+	$(CC) -I . -o bin/prosta  main.o splines.o points.o prosta.o	
 
-aproksymator_na_bazie.o: makespl.h points.h solvers/matrix.h solvers/gaus/piv_ge_solver.h
-	$(CC) -I solvers  -I solvers/gaus -c aproksymator_na_bazie.c
+aproksymator_na_bazie.o: makespl.h points.h solvers/matrix.h solvers/solver.h
+	$(CC) -I . -I solvers -c aprox/aproksymator_na_bazie.c
 
-interpolator.o: makespl.h points.h solvers/gaus/piv_ge_solver.h
-	$(CC) -I solvers/gaus -c interpolator.c
+interpolator.o: makespl.h points.h solvers/solver.h
+	$(CC) -I . -I solvers -c aprox/interpolator.c
 
+prosta.o: makespl.h
+	$(CC) -I . -c aprox/prosta.c
+
+bin:
+	mkdir bin
+	
 .PHONY: clean
 
 clean:
-	-rm *.o aprox intrp prosta
+	-rm *.o *.png solvers/libsolve.a solvers/*.o

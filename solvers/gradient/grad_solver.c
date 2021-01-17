@@ -1,4 +1,4 @@
-#include "grad.h"
+#include "solver.h"
 #include <stdlib.h>
 
 int

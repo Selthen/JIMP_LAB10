@@ -1,4 +1,4 @@
-#include "piv_ge_solver.h"
+#include "solver.h"
 #include <stdlib.h>
 
 int
