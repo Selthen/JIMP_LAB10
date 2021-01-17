@@ -19,7 +19,10 @@ prosta.o: makespl.h
 bin:
 	mkdir bin
 	
-.PHONY: clean
+.PHONY: clean clean_all
 
-clean:
-	-rm *.o *.png solvers/libsolve.a solvers/*.o
+clean: 
+	-rm *.o solvers/*.o
+
+clean_all: clean
+	-rm bin/* solvers/libsolve.a
