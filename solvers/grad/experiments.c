@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define ACCEPTABLE_ERROR 1e-12
+
 int main(int argc, char** argv)
 {
 	FILE* in = fopen("test_1", "r");
@@ -15,10 +17,8 @@ int main(int argc, char** argv)
 	matrix_t* A = read_matrix(in);
 	fclose(in);
 
-    printf("%f\n", inner_product(m1, m2, NULL));
-    printf("%f\n", inner_product(m1, m2, A));
-
-
+    printf("%d\n",is_sufficiently_small(A, ACCEPTABLE_ERROR));
+    printf("%d\n",is_sufficiently_small(m1, ACCEPTABLE_ERROR));
 	//x = get_matrix_A(eqs);
 	//write_matrix(x, fopen("wyniki.txt", "w"));
 	return 0;
