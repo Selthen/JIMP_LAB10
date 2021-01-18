@@ -17,8 +17,13 @@ int main(int argc, char** argv)
 	matrix_t* A = read_matrix(in);
 	fclose(in);
 
-    printf("%d\n",is_sufficiently_small(A, ACCEPTABLE_ERROR));
-    printf("%d\n",is_sufficiently_small(m1, ACCEPTABLE_ERROR));
+	write_matrix(A, stdout);
+	make_it_symmetrical(A, m1);
+	write_matrix(A, stdout);
+	write_matrix(m1, stdout);
+
+    printf("%d\n",insert_solution_into_eqs(A,m1));
+	write_matrix(A, stdout);
 	//x = get_matrix_A(eqs);
 	//write_matrix(x, fopen("wyniki.txt", "w"));
 	return 0;

@@ -218,6 +218,11 @@ bs_matrix (matrix_t * a)
 
 matrix_t* get_last(matrix_t* eqs)
 {
+    if (eqs == NULL)
+    {
+        fprintf(stderr, "Error! Matrix eqs does not exits.\n");
+        return NULL;
+    }
     int r;
     matrix_t* x;
     x = make_matrix(eqs->rn, 1);
@@ -230,6 +235,11 @@ matrix_t* get_last(matrix_t* eqs)
 
 matrix_t* get_matrix_A(matrix_t* eqs)
 {
+    if (eqs == NULL)
+    {
+        fprintf(stderr, "Error! Matrix eqs does not exits.\n");
+        return NULL;
+    }
     int r;
     int rn = eqs->rn;
     int cn = eqs->cn;
