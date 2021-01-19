@@ -18,7 +18,7 @@ int main(int argc, char** argv)
 	fclose(in);
 
 	write_matrix(A, stdout);
-	make_it_symmetrical(A, m1);
+	make_it_symmetrical(&A, &m1);
 	write_matrix(A, stdout);
 	write_matrix(m1, stdout);
 

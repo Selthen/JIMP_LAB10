@@ -8,7 +8,7 @@ int solver (matrix_t * eqs)
 {
     matrix_t *A = get_matrix_A(eqs);
     matrix_t *b = get_last(eqs);
-    make_it_symmetrical(A, b);
+    make_it_symmetrical(&A, &b);
     int n = A -> rn;
     matrix_t *x = make_matrix(n, 1);
     matrix_t *p;

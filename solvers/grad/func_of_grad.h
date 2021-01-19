@@ -19,6 +19,6 @@ int insert_solution_into_eqs(matrix_t *eqs, matrix_t *x);
 
 // zamiana układu równań Ax=b w taki sposób, żeby macierz A była symetryczna i dodatnio określona
 // uzyskujemy to poprzez pomnożenie układu przez transopzycję macierzy A z lewej strony
-int make_it_symmetrical (matrix_t *A,  matrix_t *b);
+int make_it_symmetrical (matrix_t **A,  matrix_t **b);
 
 #endif

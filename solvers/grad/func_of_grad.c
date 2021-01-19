@@ -82,16 +82,19 @@ int insert_solution_into_eqs(matrix_t *eqs, matrix_t *x)
 
 // zamiana układu równań Ax=b w taki sposób, żeby macierz A była kwadratowa, symetryczna i dodatnio określona
 // uzyskujemy to poprzez pomnożenie układu przez transopzycję macierzy A z lewej strony
-int make_it_symmetrical (matrix_t *A,  matrix_t *b)
+int make_it_symmetrical (matrix_t **A,  matrix_t **b)
 {
-    if (A == NULL || b == NULL || b->rn != A->cn || b->cn != 1)
+    /*if (*A == NULL || *b == NULL || *A->rn  !=  *A->cn || *b->rn != *A->cn || *b->cn != 1)
     {
         fprintf(stderr, "Some matrix is NULL OR matrices A and b don't make proper system of equations!\n");
         return 1;
-    }
+    }*/
 
-    A = mull_matrix(transpose_matrix(A),A);
-    b = mull_matrix(transpose_matrix(A),b);
+    matrix_t* tmp = *A;
+    *A = mull_matrix(transpose_matrix(*A),*A);
+    *b = mull_matrix(transpose_matrix(tmp),*b);
  
+    free(tmp);
+
     return 0;
 }
