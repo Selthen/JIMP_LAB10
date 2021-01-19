@@ -15,7 +15,7 @@ grad_solver.o: gradient/grad_solver.c matrix.h func_of_grad.h
 	$(CC)	-I . -c gradient/grad_solver.c
 
 test_gauss: gaus/gaus_main.c libsolve.a
-	$(CC)	-I . -o gaus/test_gauss gaus/gaus_main.c  -L . -l solve -g
+	$(CC)	-I . -o gaus/test_gauss gaus/gaus_main.c  -L . -l solve
 	
 .PHONY: clean
 
