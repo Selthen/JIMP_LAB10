@@ -188,7 +188,7 @@ make_spl(points_t * pts, spline_t * spl)
 
 #ifdef TEST_DATA
 	FILE* oucik = fopen("../solvers/TEST_DATA.txt", "w");
-	if(oucik!=NULL)
+	if (oucik != NULL)
 		write_matrix(eqs, oucik);
 	fclose(oucik);
 #endif
