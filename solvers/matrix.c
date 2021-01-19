@@ -93,7 +93,7 @@ copy_matrix (matrix_t * s)
 {
   matrix_t *d = NULL;
   if (s != NULL)
-    d = make_matrix (s->cn, s->rn);
+    d = make_matrix (s->rn, s->cn);
   if (d != NULL) {
     memcpy (d->e, s->e, s->rn * s->cn * sizeof *s->e);
     /* int i;
