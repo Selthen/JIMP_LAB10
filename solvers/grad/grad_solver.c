@@ -3,7 +3,9 @@
 #include <stdlib.h>
 #include <math.h>
 
-#define ACCEPTABLE_ERROR 1e-12
+//#define ACCEPTABLE_ERROR 1e-12
+//#define ACCEPTABLE_ERROR 10
+#define ACCEPTABLE_ERROR 1e-6
 
 // argument n symbolicznie oznacza, ktore free w kodzie wywolujemy
 void free_all(int n, matrix_t *A, matrix_t *b, matrix_t *x, matrix_t *new_x, matrix_t *r, matrix_t *new_r, matrix_t *p) 
