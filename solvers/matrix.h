@@ -43,4 +43,9 @@ matrix_t * symm_pivot_ge_matrix( matrix_t *, int *per );
 
 int *pivot_get_inv_per( matrix_t *, int *row_per );
 
+matrix_t* get_last(matrix_t * );
+
+matrix_t* get_matrix_A(matrix_t*);
+
+void free_matrix(matrix_t * a);
 #endif

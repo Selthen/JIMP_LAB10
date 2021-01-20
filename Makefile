@@ -19,6 +19,16 @@ prosta.o: makespl.h
 bin:
 	mkdir bin
 	
+write_test_data: main.o splines.o points.o solvers/libsolve.a bin
+	$(CC) -I . -I solvers -c aprox/aproksymator_na_bazie.c -DTEST_DATA
+	$(CC) -o bin/aprox main.o splines.o points.o aproksymator_na_bazie.o -L solvers -l solve
+	./bin/aprox -s bin/sply -p test/dane.1 
+
+write_test_data2: main.o splines.o points.o solvers/libsolve.a bin
+	$(CC) -I . -I solvers -c aprox/interpolator.c -DTEST_DATA
+	$(CC) -o bin/intrp  main.o splines.o points.o interpolator.o -L solvers -l solve
+	./bin/aprox -s bin/spl -p test/dane.1 
+
 .PHONY: clean clean_all
 
 clean: 

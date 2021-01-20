@@ -186,6 +186,13 @@ make_spl(points_t * pts, spline_t * spl)
 	write_matrix(eqs, stdout);
 #endif
 
+#ifdef TEST_DATA
+	FILE* oucik = fopen("../solvers/TEST_DATA.txt", "w");
+	if (oucik != NULL)
+		write_matrix(eqs, oucik);
+	fclose(oucik);
+#endif
+
 	if (solver(eqs)) {
 		spl->n = 0;
 		return;
@@ -211,6 +218,7 @@ make_spl(points_t * pts, spline_t * spl)
 			}
 		}
 	}
+	free_matrix(eqs);
 
 #ifdef DEBUG
 	{

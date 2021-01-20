@@ -110,7 +110,7 @@ transpose_matrix (matrix_t * s)
 {
   matrix_t *d = NULL;
   if (s != NULL)
-    d = make_matrix (s->rn, s->cn);
+    d = make_matrix (s->cn, s->rn);
   if (d != NULL) {
     int i, j;
     for (i = 0; i < s->rn; i++)
@@ -214,4 +214,41 @@ bs_matrix (matrix_t * a)
   }
   else
     return 1;
+}
+
+matrix_t* get_last(matrix_t* eqs)
+{
+    if (eqs == NULL)
+    {
+        fprintf(stderr, "Error! Matrix eqs does not exits.\n");
+        return NULL;
+    }
+    int r;
+    matrix_t* x;
+    x = make_matrix(eqs->rn, 1);
+    for (r = 0;r < eqs->rn;r++)
+    {
+        *(x->e+r)=get_entry_matrix(eqs, r, eqs->cn-1);
+    }
+    return x;
+}
+
+matrix_t* get_matrix_A(matrix_t* eqs)
+{
+    if (eqs == NULL)
+    {
+        fprintf(stderr, "Error! Matrix eqs does not exits.\n");
+        return NULL;
+    }
+    int r;
+    int rn = eqs->rn;
+    int cn = eqs->cn;
+    matrix_t* A;
+    A = make_matrix(rn, cn-1);
+    for (r = 0;r < rn ;r++)
+    {
+        for(int k=0;k<cn-1;k++)
+        *(A->e + r*rn + k) = get_entry_matrix(eqs, r, k);
+    }
+    return A;
 }
