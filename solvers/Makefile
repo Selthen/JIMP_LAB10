@@ -16,10 +16,47 @@ piv_ge_solver.o: gaus/piv_ge_solver.c solver.h matrix.h
 pivot.o:  gaus/pivot.c matrix.h
 	$(CC)  -I . -c gaus/pivot.c
 
-test_gauss: gaus/gaus_main.c libsolve.a
-	$(CC)	-I . -o gaus/test_gauss gaus/gaus_main.c  -L . -l solve
-	
-.PHONY: clean
+
+test_grad: grad/main_grad.c gradient
+	$(CC)  -I . -o test_grad grad/main_grad.c  -L . -l solve
+test_gaus: gaus/main_gaus.c gauss
+	$(CC)  -I . -o test_gaus gaus/main_gaus.c  -L . -l solve
+
+t1: test_grad test_data/TEST_DATA.txt test_data/odp1
+	./test_grad test_data/TEST_DATA.txt tmp
+	@if [ "$$(diff tmp test_data/odp1 | wc -l)" = "0" ]; then echo "Wyniki met. grad. sprz. sa prawidlowe!"; else echo "Ktorys z wynikow jest bledny!"; fi
+	@rm tmp
+ 
+t2: test_grad test_data/TEST_DATA2.txt test_data/odp2
+	./test_grad test_data/TEST_DATA2.txt tmp
+	@if [ "$$(diff tmp test_data/odp2 | wc -l)" = "0" ]; then echo "Wyniki met. grad. sprz. sa prawidlowe!"; else echo "Ktorys z wynikow jest bledny!"; fi
+	@rm tmp
+ 
+t3: test_grad test_data/big_matrix.txt test_data/odp3
+	./test_grad test_data/big_matrix.txt tmp
+	@if [ "$$(diff tmp test_data/odp3 | wc -l)" = "0" ]; then echo "Wyniki met. grad. sprz. sa prawidlowe!"; else echo "Ktorys z wynikow jest bledny!"; fi
+	@rm tmp
+ 
+t4: test_gaus test_data/TEST_DATA.txt test_data/odp1
+	./test_gaus test_data/TEST_DATA.txt tmp
+	@if [ "$$(diff tmp test_data/odp2 | wc -l)" = "0" ]; then echo "Wyniki met. el. Gaussa sa prawidlowe!"; else echo "Ktorys z wynikow jest bledny!"; fi
+	@rm tmp
+ 
+t5: test_gaus test_data/TEST_DATA2.txt test_data/odp2
+	./test_gaus test_data/TEST_DATA2.txt tmp
+	@if [ "$$(diff tmp test_data/odp3 | wc -l)" = "0" ]; then echo "Wyniki met. el. Gaussa sa prawidlowe!"; else echo "Ktorys z wynikow jest bledny!"; fi
+	@rm tmp
+ 
+t6: test_gaus test_data/big_matrix.txt
+	./test_gaus test_data/big_matrix.txt tmp
+	@if [ "$$(diff tmp test_data/odp6 | wc -l)" = "0" ]; then echo "Wyniki met. el. Gaussa sa prawidlowe!"; else echo "Ktorys z wynikow jest bledny!"; fi
+	@rm tmp
+ 
+
+.PHONY: clean clean_all t1 t2 t3 t4 t5 t6
 
 clean:
-	-rm *.o libsolve.a 
+	-rm *.o 
+
+clean_all: clean
+	-rm libsolve.a test_gaus test_grad 
