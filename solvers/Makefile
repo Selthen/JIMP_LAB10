@@ -39,17 +39,17 @@ t3: test_grad test_data/big_matrix.txt test_data/odp3
  
 t4: test_gaus test_data/TEST_DATA.txt test_data/odp1
 	./test_gaus test_data/TEST_DATA.txt tmp
-	@if [ "$$(diff tmp test_data/odp2 | wc -l)" = "0" ]; then echo "Wyniki met. el. Gaussa sa prawidlowe!"; else echo "Ktorys z wynikow jest bledny!"; fi
+	@if [ "$$(diff tmp test_data/odp1 | wc -l)" = "0" ]; then echo "Wyniki met. el. Gaussa sa prawidlowe!"; else echo "Ktorys z wynikow jest bledny!"; fi
 	@rm tmp
  
 t5: test_gaus test_data/TEST_DATA2.txt test_data/odp2
 	./test_gaus test_data/TEST_DATA2.txt tmp
-	@if [ "$$(diff tmp test_data/odp3 | wc -l)" = "0" ]; then echo "Wyniki met. el. Gaussa sa prawidlowe!"; else echo "Ktorys z wynikow jest bledny!"; fi
+	@if [ "$$(diff tmp test_data/odp2 | wc -l)" = "0" ]; then echo "Wyniki met. el. Gaussa sa prawidlowe!"; else echo "Ktorys z wynikow jest bledny!"; fi
 	@rm tmp
  
 t6: test_gaus test_data/big_matrix.txt
 	./test_gaus test_data/big_matrix.txt tmp
-	@if [ "$$(diff tmp test_data/odp6 | wc -l)" = "0" ]; then echo "Wyniki met. el. Gaussa sa prawidlowe!"; else echo "Ktorys z wynikow jest bledny!"; fi
+	@if [ "$$(diff tmp test_data/odp3 | wc -l)" = "0" ]; then echo "Wyniki met. el. Gaussa sa prawidlowe!"; else echo "Ktorys z wynikow jest bledny!"; fi
 	@rm tmp
  
 
@@ -59,4 +59,4 @@ clean:
 	-rm *.o 
 
 clean_all: clean
-	-rm libsolve.a test_gaus test_grad 
+	-rm libsolve.a test_gaus test_grad tmp 
