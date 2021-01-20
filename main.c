@@ -158,7 +158,7 @@ main (int argc, char **argv)
 
     fclose (gpf);
   }
-//  free_spl(&spl);
+  free_spl(&spl);
   free_pts(&pts);
   return 0;
 }
