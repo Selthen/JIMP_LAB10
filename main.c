@@ -117,7 +117,7 @@ main (int argc, char **argv)
                inp);
       exit (EXIT_FAILURE);
     }
-  } else { /* ponts were not given nor spline was given -> it is an error */
+  } else { /* points were not given nor spline was given -> it is an error */
     fprintf (stderr, usage, argv[0]);
     exit (EXIT_FAILURE);
   }
@@ -158,6 +158,7 @@ main (int argc, char **argv)
 
     fclose (gpf);
   }
-
+  free_spl(&spl);
+  free_pts(&pts);
   return 0;
 }

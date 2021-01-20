@@ -20,4 +20,4 @@ test_gauss: gaus/gaus_main.c libsolve.a
 .PHONY: clean
 
 clean:
-	-rm *.o libsolve.a 
+	-rm *.o libsolve.a gaus/test_gauss gaus/wyniki.txt
