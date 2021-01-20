@@ -29,7 +29,10 @@ double inner_product(matrix_t *vec1, matrix_t *vec2, matrix_t *A)
     }
 
     if(result != NULL)
-        return get_entry_matrix(result, 0, 0);
+    {
+        double to_return = get_entry_matrix(result, 0, 0);
+        free_matrix(result);
+        return to_return;
     else
     {
         fprintf(stderr, "Trying to multiply NULL matrix!\n");

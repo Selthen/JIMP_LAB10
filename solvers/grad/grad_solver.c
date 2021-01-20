@@ -5,6 +5,18 @@
 
 #define ACCEPTABLE_ERROR 1e-12
 
+void free_all(matrix_t *A, matrix_t *b, matrix_t *x, matrix_t *new_x, matrix_t *r, matrix_t *new_r, matrix_t *p, matrix_t *new_p) 
+{
+        free_matrix(A);
+        free_matrix(r);
+        free_matrix(x);
+        free_matrix(new_x);
+        free_matrix(r);
+        free_matrix(new_r);
+        free_matrix(p);
+        free_matrix(new_p);
+}
+
 int solver (matrix_t * eqs)
 {
     if(eqs == NULL || eqs->rn != eqs->cn - 1)
@@ -16,16 +28,14 @@ int solver (matrix_t * eqs)
     matrix_t *b = get_last(eqs);
     make_it_symmetrical(&A, &b);
 
-//    write_matrix(A,stdout);
-//    write_matrix(b,stdout);
-
     int n = A -> rn;
     matrix_t *x = make_matrix(n, 1);
+    matrix_t *new_x;
     matrix_t *p;
+    matrix_t *new_p;
     matrix_t *r;
     matrix_t *new_r;
-    matrix_t *new_x;
-    matrix_t *new_p;
+    matrix_t *tmp;
     double alpha;
     double beta;
 
@@ -33,6 +43,10 @@ int solver (matrix_t * eqs)
     if(is_sufficiently_small(r, ACCEPTABLE_ERROR))
     {
         insert_solution_into_eqs(eqs, x);
+        free_matrix(A);
+        free_matrix(b);
+        free_matrix(x);
+        free_matrix(r);
         return 0;
     }
     p = copy_matrix(r);
@@ -42,19 +56,30 @@ int solver (matrix_t * eqs)
     {
         alpha = inner_product(r, r, NULL) / inner_product(p, p, A);
         new_x = add_mat_and_multi_second(x, p, alpha);
-        new_r = add_mat_and_multi_second(r, mull_matrix(A, p), -1 * alpha);
+
+        tmp = mull_matrix(A, p);
+        new_r = add_mat_and_multi_second(r, tmp, -1 * alpha);
+        free_matrix(tmp);
+
         if(is_sufficiently_small(new_r, ACCEPTABLE_ERROR))
         {
             insert_solution_into_eqs(eqs, new_x);
+            free_all(A, b, x, new_x, r, new_r, p, new_p);
             return 0;
         }   
+
         beta = inner_product(new_r, new_r, NULL) / inner_product(r, r, NULL);
         new_p = add_mat_and_multi_second(new_r, p, beta);
+
+        free_matrix(r);
         r = new_r;
+        free_matrix(x);
         x = new_x;
+        free_matrix(p);
         p = new_p;
     }
   
     insert_solution_into_eqs(eqs, new_x);
+    free_all(A, b, x, new_x, r, new_r, p, new_p);
     return 0;
 }
