@@ -58,5 +58,4 @@ void free_pts(points_t* pts)
 {
     free(pts->x);
     free(pts->y);
-    free(pts);
 }
