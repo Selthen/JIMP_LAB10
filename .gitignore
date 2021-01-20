@@ -1,5 +1,5 @@
-*a
-*o
+*.a
+*.o
 bin/
 *.png
 myplot

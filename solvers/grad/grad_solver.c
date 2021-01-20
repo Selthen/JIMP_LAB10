@@ -5,16 +5,21 @@
 
 #define ACCEPTABLE_ERROR 1e-12
 
-void free_all(matrix_t *A, matrix_t *b, matrix_t *x, matrix_t *new_x, matrix_t *r, matrix_t *new_r, matrix_t *p, matrix_t *new_p) 
+// argument n symbolicznie oznacza, ktore free w kodzie wywolujemy
+void free_all(int n, matrix_t *A, matrix_t *b, matrix_t *x, matrix_t *new_x, matrix_t *r, matrix_t *new_r, matrix_t *p) 
 {
         free_matrix(A);
-        free_matrix(r);
+        free_matrix(b);
         free_matrix(x);
-        free_matrix(new_x);
         free_matrix(r);
-        free_matrix(new_r);
-        free_matrix(p);
-        free_matrix(new_p);
+        if(n > 1)
+            free_matrix(p);
+        if(n == 2)
+        {
+            free_matrix(new_r);
+            free_matrix(new_x);
+        }
+
 }
 
 int solver (matrix_t * eqs)
@@ -43,10 +48,7 @@ int solver (matrix_t * eqs)
     if(is_sufficiently_small(r, ACCEPTABLE_ERROR))
     {
         insert_solution_into_eqs(eqs, x);
-        free_matrix(A);
-        free_matrix(b);
-        free_matrix(x);
-        free_matrix(r);
+        free_all(1, A, b, x, new_x, r, new_r, p);
         return 0;
     }
     p = copy_matrix(r);
@@ -64,7 +66,7 @@ int solver (matrix_t * eqs)
         if(is_sufficiently_small(new_r, ACCEPTABLE_ERROR))
         {
             insert_solution_into_eqs(eqs, new_x);
-            free_all(A, b, x, new_x, r, new_r, p, new_p);
+            free_all(2, A, b, x, new_x, r, new_r, p);
             return 0;
         }   
 
@@ -80,6 +82,6 @@ int solver (matrix_t * eqs)
     }
   
     insert_solution_into_eqs(eqs, new_x);
-    free_all(A, b, x, new_x, r, new_r, p, new_p);
+    free_all(3, A, b, x, new_x, r, new_r, p);
     return 0;
 }

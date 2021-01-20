@@ -121,34 +121,6 @@ transpose_matrix (matrix_t * s)
   return d;
 }
 
-void
-xchg_rows (matrix_t * m, int i, int j)
-{
-  if (m != NULL && i >= 0 && i < m->rn && j >= 0 && j < m->rn) {
-    int k;
-    double tmp;
-    for (k = 0; k < m->cn; k++) {
-      tmp = *(m->e + i * m->cn + k);
-      *(m->e + i * m->cn + k) = *(m->e + j * m->cn + k);
-      *(m->e + j * m->cn + k) = tmp;
-    }
-  }
-}
-
-void
-xchg_cols (matrix_t * m, int i, int j)
-{
-  if (m != NULL && i >= 0 && i < m->cn && j >= 0 && j < m->cn) {
-    int k;
-    double tmp;
-    for (k = 0; k < m->rn; k++) {
-      tmp = *(m->e + k * m->cn + i);
-      *(m->e + k * m->cn + i) = *(m->e + k * m->cn + j);
-      *(m->e + k * m->cn + j) = tmp;
-    }
-  }
-}
-
 matrix_t *
 mull_matrix (matrix_t * a, matrix_t * b)
 {
@@ -171,25 +143,18 @@ mull_matrix (matrix_t * a, matrix_t * b)
   }
 }
 
-matrix_t *
-ge_matrix (matrix_t * a)
+void
+xchg_rows (matrix_t * m, int i, int j)
 {
-  matrix_t *c = copy_matrix (a);
-  if (c != NULL) {
-    int i, j, k;
-    int cn = c->cn;
-    int rn = c->rn;
-    double *e = c->e;
-    for (k = 0; k < rn - 1; k++) {      /* eliminujemy (zerujemy) kolumnę nr k */
-      for (i = k + 1; i < rn; i++) {    /* pętla po kolejnych
-                                           wierszach poniżej diagonalii k,k */
-        double d = *(e + i * cn + k) / *(e + k * cn + k);
-        for (j = k; j < cn; j++)
-          *(e + i * cn + j) -= d * *(e + k * cn + j);
-      }
+  if (m != NULL && i >= 0 && i < m->rn && j >= 0 && j < m->rn) {
+    int k;
+    double tmp;
+    for (k = 0; k < m->cn; k++) {
+      tmp = *(m->e + i * m->cn + k);
+      *(m->e + i * m->cn + k) = *(m->e + j * m->cn + k);
+      *(m->e + j * m->cn + k) = tmp;
     }
   }
-  return c;
 }
 
 int
@@ -210,6 +175,7 @@ bs_matrix (matrix_t * a)
         *(e + r * cn + k) = rhs / *(e + r * cn + r);    /* nowa wartość to prawa strona / el. diagonalny */
       }
     }
+    free(e);
     return 0;
   }
   else
